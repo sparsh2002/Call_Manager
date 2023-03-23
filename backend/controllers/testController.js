@@ -1,4 +1,5 @@
 const { uploadFile } = require('../middleware/gcp/cloudstorage');
+const { analyzeVideoTranscript } = require('../middleware/gcp/cloudVideoIntelligence');
 const { db } = require('../middleware/gcp/firestore')
 async function getFS(req, res) {
     try {
@@ -30,15 +31,18 @@ async function sampleAdd(req, res) {
 }
 
 
-async function upload(req, res){
+
+async function transcript(req , res){
     try {
-        console.log(req)
-        // console.log(req.body)
-        // const x = await uploadFile()
-        res.status(201).json({success:true})
+        const file = req.body.file
+        // const file = req.file.path;
+        // console.log(file)
+        const x = await analyzeVideoTranscript(file)
+        // console.log("x" ,x)
+        res.status(201).json({"success":true , "response":x})
     } catch (error) {
         console.log(error)
     }
 }
 
-module.exports = { getFS, sampleAdd , upload }
+module.exports = { getFS, sampleAdd  , transcript}
