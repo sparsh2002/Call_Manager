@@ -1,3 +1,4 @@
+const { uploadFile } = require('../middleware/gcp/cloudstorage');
 const { db } = require('../middleware/gcp/firestore')
 async function getFS(req, res) {
     try {
@@ -29,4 +30,15 @@ async function sampleAdd(req, res) {
 }
 
 
-module.exports = { getFS, sampleAdd }
+async function upload(req, res){
+    try {
+        console.log(req)
+        // console.log(req.body)
+        // const x = await uploadFile()
+        res.status(201).json({success:true})
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+module.exports = { getFS, sampleAdd , upload }
