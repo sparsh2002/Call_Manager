@@ -13,13 +13,13 @@ const multerMiddleware = Multer({
   limits: {
     fileSize: 500 * 1024 * 1024, // 500 MB limit
   },
-  fileFilter: (req, file, cb) => {
-    if (!file.originalname.match(/\.(jpg|jpeg|png|gif)$/)) {
-      cb(new Error('Only image files are allowed.'), false);
-    } else {
-      cb(null, true);
-    }
-  },
+//   fileFilter: (req, file, cb) => {
+//     if (!file.originalname.match(/\.(jpg|jpeg|png|gif)$/)) {
+//       cb(new Error('Only image files are allowed.'), false);
+//     } else {
+//       cb(null, true);
+//     }
+//   },
 }).single('file');
 
 module.exports = {multerMiddleware , bucket}
