@@ -25,6 +25,9 @@ async function uploadUsingBlob(path) {
   const options = {
     destination: id,
     resumable: false,
+    metadata: {
+      contentType: 'video/mp4',
+    },
   };
 
 
