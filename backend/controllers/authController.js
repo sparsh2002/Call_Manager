@@ -1,7 +1,7 @@
 // Import the functions you need from the SDKs you need
 const { initializeApp } = require("firebase/app");
 // const { getAnalytics } = require("firebase/analytics");
-const { getAuth , signInWithEmailAndPassword , createUserWithEmailAndPassword } = require('firebase/auth')
+const { getAuth , signInWithEmailAndPassword , createUserWithEmailAndPassword , signOut } = require('firebase/auth')
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -102,20 +102,9 @@ async function signUp(req, res) {
     }
 }
 
-async function login(req, res) {
+async function signOutFunction() {
     try {
-        const email = req.body.email
-        const password = req.body.password
-        const user = await auth.getUserByEmail(email)
-        res.status(200).json(user)
-    } catch (error) {
-        console.log(error)
-    }
-}
-
-async function signOut() {
-    try {
-        await admin.auth().signOut()
+        signOut(auth)
             .then(() => {
                 console.log('User logged out successfully');
             })
@@ -128,5 +117,15 @@ async function signOut() {
     }
 }
 
-module.exports = { signIn, signOut, login , signUp }
+async function getCurrentUser(req , res){
+    try {
+        const user =  auth.currentUser
+        res.status(200).json(user)
+    } catch (error) {
+        console.log(error)
+
+    }
+}
+
+module.exports = { signIn, signOutFunction , signUp , getCurrentUser }
 

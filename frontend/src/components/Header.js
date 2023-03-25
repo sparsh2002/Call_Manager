@@ -35,6 +35,8 @@ function ResponsiveAppBar() {
     setAnchorElUser(null);
   };
 
+  
+
   return (
     <AppBar position="static">
       <Container maxWidth="xl">

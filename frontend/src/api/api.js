@@ -2,11 +2,33 @@ import axios from 'axios'
 
 const api = 'http://localhost:5050'
 
-export const uploadfileusingurl = (url) =>{
+export const uploadfileusingurl = async (url) =>{
     try {
         console.log(url)
-        axios.post(`${api}/api/test/storage/upload-via-url` , {url:url} )
+        await axios.post(`${api}/api/test/storage/upload-via-url` , {url:url} )
         return "success"
+    } catch (error) {
+        return error
+    }
+}
+
+export const signUpApi = async (user) =>{
+    try {
+        console.log(user)
+        const res = await axios.post(`${api}/api/auth/signup` , user)
+        return res
+
+    } catch (error) {
+        return error
+    }
+}
+
+export const signInApi = async (user) =>{
+    try {
+        console.log(user)
+        const res = await axios.post(`${api}/api/auth/signin` , user)
+        return res
+
     } catch (error) {
         return error
     }
