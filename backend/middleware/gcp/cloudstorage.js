@@ -3,7 +3,7 @@ const Multer = require('multer');
 
 const storage = new Storage({
   projectId: 'demo1212-606bb',
-  keyFilename: '/Users/sparshjhariya/Desktop/TECHY/Internship/Tasks/Salesine/call-transcript/backend/middleware/gcp/serviceAccount.json',
+  keyFilename: '/Users/sparshjhariya/Desktop/TECHY/Internship/Tasks/Salesine/call-transcript/serviceAccount.json',
 });
 
 const bucket = storage.bucket('video-call-transcript');

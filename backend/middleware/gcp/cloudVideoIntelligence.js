@@ -1,7 +1,7 @@
 const videoIntelligence = require('@google-cloud/video-intelligence');
 const client = new videoIntelligence.VideoIntelligenceServiceClient({
     projectId: 'demo1212-606bb',
-    keyFilename: '/Users/sparshjhariya/Desktop/TECHY/Internship/Tasks/Salesine/call-transcript/backend/middleware/gcp/serviceAccount.json',
+    keyFilename: '/Users/sparshjhariya/Desktop/TECHY/Internship/Tasks/Salesine/call-transcript/serviceAccount.json',
   });
 
 

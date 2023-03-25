@@ -22,7 +22,7 @@ const Firestore = require('@google-cloud/firestore');
 
 const db = new Firestore({
   projectId: 'demo1212-606bb',
-  keyFilename: '/Users/sparshjhariya/Desktop/TECHY/Internship/Tasks/Salesine/call-transcript/backend/middleware/gcp/serviceAccount.json',
+  keyFilename: '/Users/sparshjhariya/Desktop/TECHY/Internship/Tasks/Salesine/call-transcript/serviceAccount.json',
 });
 
 module.exports = {db}
