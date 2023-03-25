@@ -12,10 +12,10 @@ const client = new videoIntelligence.VideoIntelligenceServiceClient({
         enableAutomaticPunctuation: true,
       },
     };
-  
+    console.log(fileName)
     const request = {
-    //   inputUri: fileName,
-    inputUri : 'gs://video-call-transcript/video.mp4',
+      inputUri: fileName,
+    // inputUri : 'gs://video-call-transcript/video.mp4',
       features: ['SPEECH_TRANSCRIPTION'],
       videoContext: videoContext,
     };

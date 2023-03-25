@@ -25,17 +25,12 @@ async function uploadUsingBlob(path) {
   const options = {
     destination: id,
     resumable: false,
-    metadata: {
-      contentType: 'video/mp4',
-    },
   };
 
 
-  bucket.upload(path, options)
-    .then(async() => {
+  bucket.upload(path)
+    .then(() => {
       console.log('File uploaded successfully.');
-
-      
     })
     .catch((err) => {
       console.error('Error uploading file:', err);
