@@ -1,6 +1,7 @@
-const { uploadFile } = require('../middleware/gcp/cloudstorage');
+const { uploadFile, uploadUsingBlob } = require('../middleware/gcp/cloudstorage');
 const { analyzeVideoTranscript } = require('../middleware/gcp/cloudVideoIntelligence');
 const { db } = require('../middleware/gcp/firestore')
+
 async function getFS(req, res) {
     try {
         console.log('db:', db)
@@ -30,6 +31,18 @@ async function sampleAdd(req, res) {
     }
 }
 
+async function uploadViaURL(req , res){
+    try {
+        const url = req.body.url;
+        let x = await uploadUsingBlob(url)
+        // console.log(url)
+        console.log('loc-url'  , x)
+        res.status(201).json(x)
+    } catch (error) {
+        console.log(error)
+    }
+}
+
 
 
 async function transcript(req , res){
@@ -45,4 +58,5 @@ async function transcript(req , res){
     }
 }
 
-module.exports = { getFS, sampleAdd  , transcript}
+
+module.exports = { getFS, sampleAdd  , transcript , uploadViaURL}

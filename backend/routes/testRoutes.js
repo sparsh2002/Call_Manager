@@ -1,6 +1,6 @@
 const express = require('express')
 const router = express.Router()
-const {getFS, sampleAdd , upload, transcript} = require('../controllers/testController')
+const {getFS, sampleAdd , upload, transcript, uploadViaURL} = require('../controllers/testController')
 const {multerMiddleware , bucket} = require('../middleware/gcp/cloudstorage')
 const { analyzeVideoTranscript } = require('../middleware/gcp/cloudVideoIntelligence');
 
@@ -12,8 +12,11 @@ router.get("/" , (req , res) => {
 
 router.get("/firestore" , getFS  )
 router.post("/firestore/sampleadd" , sampleAdd)
+
+router.post("/storage/upload-via-url" , uploadViaURL)
 router.post("/storage/upload" , multerMiddleware, (req, res) => {
     const file = req.file;
+
   
     if (!file) {
       res.status(400).send('No file uploaded.');
@@ -36,7 +39,9 @@ router.post("/storage/upload" , multerMiddleware, (req, res) => {
       res.status(200).send('File uploaded successfully.');
     });
   
-    blobStream.end(file.buffer)})
+  blobStream.end(file.buffer)
+})
+
 
 
 router.post("/video/transcript" , transcript);

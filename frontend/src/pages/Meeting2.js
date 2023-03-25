@@ -1,11 +1,26 @@
-import React, { useState, useEffect } from 'react';
-
+import React, { useState, useEffect , useRef } from 'react';
+import uuid from 'react-uuid';
 import '../App.css';
 import ZoomMtgEmbedded from '@zoomus/websdk/embedded';
 
+import { useReactMediaRecorder } from "react-media-recorder";
+import { uploadfileusingurl } from '../api/api';
 function App() {
+    
+    const { status, startRecording, stopRecording, mediaBlobUrl } =
+        useReactMediaRecorder({ screen: true, audio: true });
 
+    // console.log(mediaBlobUrl, status)
     const client = ZoomMtgEmbedded.createClient();
+
+   
+
+    // useEffect(() => {
+    //     if (status == 'stopped') {
+
+    //     }
+    // }, [status])
+
 
     var authEndpoint = 'http://localhost:4000'
     var sdkKey = 'Q76NcnY5TXmSyBwodgWuyQ'
@@ -23,7 +38,7 @@ function App() {
 
     function getSignature(e) {
         e.preventDefault();
-        console.log(meetingNumber , passWord , userName)
+        console.log(meetingNumber, passWord, userName)
 
         fetch(authEndpoint, {
             method: 'POST',
@@ -39,6 +54,39 @@ function App() {
                 console.error(error)
             })
     }
+
+    const videoRef = useRef(null);
+  const [downloadUrl, setDownloadUrl] = useState("");
+
+  async function uploadVideo(path){
+    await uploadfileusingurl(path)
+  }
+  const handleDownload = async () => {
+    const downloadLink = document.createElement("a");
+    downloadLink.href = downloadUrl;
+    
+    let name = uuid()
+
+    let path = "/Users/sparshjhariya/Downloads/" + name + '.webm'
+    downloadLink.download = name;
+    document.body.appendChild(downloadLink);
+    downloadLink.click();
+    await uploadVideo(path)
+
+  };
+
+  const handleStop = (blobUrl) => {
+    setDownloadUrl(blobUrl);
+  };
+
+  useEffect(() => {
+    if(status==="stopped"){
+        handleStop(mediaBlobUrl)
+    }
+   
+  }, [status])
+  
+//   console.log("downloadurl:" ,downloadUrl)
 
     function startMeeting(signature) {
 
@@ -74,6 +122,27 @@ function App() {
             tk: registrantToken,
             zak: zakToken
         })
+
+        // start recording the Zoom meeting
+        // client.startRecord({
+        //     success: function (res) {
+        //         console.log("Successfully started recording.");
+        //     },
+        //     error: function (err) {
+        //         console.log(err);
+        //     },
+        // });
+
+        // stop recording the Zoom meeting
+        // client.stopRecord({
+        //     success: function (res) {
+        //         console.log("Successfully stopped recording.");
+        //     },
+        //     error: function (err) {
+        //         console.log(err);
+        //     },
+        // });
+        // client.record()
     }
 
     return (
@@ -82,7 +151,7 @@ function App() {
                 <h1 className='text-2xl font-bold mb-4 mt-4'>Meeting Page</h1>
 
                 {/* For Component View */}
-               
+
                 <div className='flex flex-col justify-between gap-y-5'>
                     <div className='flex justify-between content-between items-center'>
                         <label className='font-bold'>UserName</label>
@@ -106,6 +175,21 @@ function App() {
                 <div id="meetingSDKElement">
                     {/* Zoom Meeting SDK Component View Rendered Here */}
                 </div>
+                <div>
+                    <h1 className='text-xl font-bold mb-4 mt-4'>Recording Menu</h1>
+                    {mediaBlobUrl ? <video ref={videoRef} src={mediaBlobUrl} controls /> :''}
+                    {status === "recording" ? (
+                        <button onClick={stopRecording}>Stop Recording</button>
+                    ) : (
+                        <button onClick={startRecording}>Start Recording</button>
+                    )}
+                    {downloadUrl && <button onClick={handleDownload}>Download Video</button>}
+                </div>
+                {/* <div>
+                    <h1 className='text-xl font-bold mb-4 mt-4'>Recording Menu</h1>
+                    <button  className='mr-5' onClick={}>Start Recording</button>
+                    <button onClick={stopRecording}>Stop Recording</button>
+                </div> */}
             </main>
         </div>
     );
