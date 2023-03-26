@@ -1,6 +1,6 @@
 const express = require('express')
 const router = express.Router()
-const {getFS, sampleAdd , upload, transcript, uploadViaURL} = require('../controllers/testController')
+const {getFS, sampleAdd , upload, transcript, uploadViaURL, getSignedUrlApi} = require('../controllers/testController')
 const {multerMiddleware , bucket} = require('../middleware/gcp/cloudstorage')
 const { analyzeVideoTranscript } = require('../middleware/gcp/cloudVideoIntelligence');
 
@@ -45,5 +45,7 @@ router.post("/storage/upload" , multerMiddleware, (req, res) => {
 
 
 router.post("/video/transcript" , transcript);
+
+router.post("/storage/get-signed-url" , getSignedUrlApi)
 
 module.exports = router

@@ -33,3 +33,12 @@ export const signInApi = async (user) =>{
         return error
     }
 }
+
+export const getSignedUrlApi = async(file) =>{
+    try {
+        const res = await axios.post(`${api}/api/test/storage/get-signed-url` , {file:file})
+        return res.data.url
+    } catch (error) {
+        return error
+    }
+}

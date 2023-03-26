@@ -42,4 +42,18 @@ async function uploadUsingBlob(path) {
   return id
 }
 
-module.exports = { multerMiddleware, bucket, uploadUsingBlob }
+async function getSignedUrlMiddleWare(fileName){
+  const options = {
+    version: 'v4',
+    action: 'read',
+    expires: Date.now() + 2400 * 60 * 1000, // 2400 minutes
+  };
+  
+  const bucketName = 'video-call-transcript'
+  const file = storage.bucket(bucketName).file(fileName)
+  const [url] = await file.getSignedUrl(options)
+  // console.log(url)
+  return url
+}
+
+module.exports = { multerMiddleware, bucket, uploadUsingBlob  , getSignedUrlMiddleWare}

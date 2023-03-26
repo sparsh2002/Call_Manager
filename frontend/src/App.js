@@ -15,7 +15,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path='/calllist' element={<CallList />} />
         <Route path='/meeting' element={<Meeting />} /> 
-        <Route path="/recording" element={<Recording />} />
+        <Route path="/recording/:file" element={<Recording />} />
         
         {/* auth */}
         <Route path='/signup' element={<SignUp />} />

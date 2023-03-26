@@ -5,6 +5,7 @@ import SearchIcon from '@mui/icons-material/Search';
 import { styled, alpha } from '@mui/material/styles';
 import InputBase from '@mui/material/InputBase';
 import { Avatar } from '@mui/material';
+import { Link } from 'react-router-dom';
 
 const items = [{ person1: 'Sparsh', person2: 'Pranshi', date: 'March 26 2023', company: 'DRDO' },
 { person1: 'Sparsh', person2: 'Pranshi', date: 'March 26 2023', company: 'DRDO' },
@@ -83,7 +84,7 @@ function CallList() {
               person ? person.map(elem => 
                 <div className='flex items-center gap-x-4'>
                   <div>
-                    <Avatar />
+                    <Avatar src='https://mui.com/static/images/avatar/2.jpg' />
                   </div>
                   <div>
                     <p className='font-bold'>{elem.name}</p>
@@ -104,7 +105,8 @@ function CallList() {
           <div className='mt-4'>
             {
               items ? items.map(elem =>
-                <div className='flex gap-x-5 mb-5'>
+                <Link to=''>
+                  <div className='flex gap-x-5 mb-5'>
                   <div>
                     <VideocamIcon fontSize='large' color='primary' />
                   </div>
@@ -121,6 +123,7 @@ function CallList() {
                     </div>
                   </div>
                 </div>
+                </Link>
               ) : ''
             }
           </div>
