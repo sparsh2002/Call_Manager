@@ -46,6 +46,7 @@ function ResponsiveAppBar() {
 
   async function logOutUser(){
     await signOutUser()
+    setUser(null)
   }
 
   React.useEffect(() => {
@@ -146,7 +147,7 @@ function ResponsiveAppBar() {
          {
           user===null ? <div className='flex gap-x-3'>
             <button><a  href='/signin'>SignIn</a></button>
-            <button>SignUp</button>
+            <button><a  href='/signup'>SignUp</a></button>
           </div> :  <Box sx={{ flexGrow: 0 }}>
           <Tooltip title="Open settings">
             <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
