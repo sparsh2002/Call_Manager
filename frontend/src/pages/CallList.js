@@ -105,7 +105,7 @@ function CallList() {
           <div className='mt-4'>
             {
               items ? items.map(elem =>
-                <Link to=''>
+                <Link to='/recording/video.mp4'>
                   <div className='flex gap-x-5 mb-5'>
                   <div>
                     <VideocamIcon fontSize='large' color='primary' />
