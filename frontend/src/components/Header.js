@@ -13,8 +13,11 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
+import {Link, Navigate} from 'react-router-dom'
+import { useNavigate } from "react-router-dom";
 
 const pages = ['Home', 'Calls', 'Library'];
+const pagesLink = ['/' , '/calllist' , '/']
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 const action = ['/profile' , '/account' , '/home' , '/logout']
 
@@ -23,6 +26,7 @@ function ResponsiveAppBar() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
   const [user , setUser] = React.useState(null)
+  const navigate = useNavigate();
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -31,8 +35,13 @@ function ResponsiveAppBar() {
     setAnchorElUser(event.currentTarget);
   };
 
-  const handleCloseNavMenu = () => {
+  const handleCloseNavMenu = (i) => {
+    
     setAnchorElNav(null);
+    // console.log( 'url: ',pagesLink[i])
+    // console.log('index:' ,i)
+    // navigate(pagesLink[i])
+    navigate("/calllist")
   };
 
   const handleCloseUserMenu = () => {
@@ -106,9 +115,11 @@ function ResponsiveAppBar() {
                 display: { xs: 'block', md: 'none' },
               }}
             >
-              {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">{page}</Typography>
+              {pages.map((page , i) => (
+                <MenuItem key={page} 
+                onClick={() =>handleCloseNavMenu(i)}
+                >
+                  <Typography  textAlign="center">{page}</Typography>
                 </MenuItem>
               ))}
             </Menu>

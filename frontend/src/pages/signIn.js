@@ -1,9 +1,11 @@
 import React,{useState} from 'react'
+import { useNavigate } from 'react-router-dom'
 import { signInApi } from '../api/api'
 
 function SignIn() {
   const [email , setEmail] = useState('')
   const [password , setPassword] = useState('')  
+  const navigate = useNavigate()
 
   async function SignInFunction(){
     const user = {
@@ -11,6 +13,7 @@ function SignIn() {
         password:password
     }
    await signInApi(user)
+   navigate("/")
   }
   return (
     <div className='flex flex-col justify-center w-[50vw] m-auto mt-[20vh]'>

@@ -1,16 +1,18 @@
 import React ,{useState} from 'react'
+import { useNavigate } from 'react-router-dom'
 import { signUpApi } from '../api/api'
 
 function SignUp() {
   const [email , setEmail] = useState('')
   const [password , setPassword] = useState('')  
-
+  const navigate = useNavigate()
   async function SignUpFunction(){
     const user = {
         email:email,
         password:password
     }
     await signUpApi(user)
+    navigate("/")
   }
 
   return (
