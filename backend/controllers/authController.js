@@ -2,61 +2,13 @@
 const { initializeApp } = require("firebase/app");
 // const { getAnalytics } = require("firebase/analytics");
 const { getAuth , signInWithEmailAndPassword , createUserWithEmailAndPassword , signOut } = require('firebase/auth')
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
+const {firebaseConfig} = require('../../fire')
 
-// Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
-const firebaseConfig = {
-    apiKey: "AIzaSyDl6EOsOo4zYwgZqvPJZMz6v6m0u_cAvwk",
-    authDomain: "demo1212-606bb.firebaseapp.com",
-    projectId: "demo1212-606bb",
-    storageBucket: "demo1212-606bb.appspot.com",
-    messagingSenderId: "618368048589",
-    appId: "1:618368048589:web:b46cc16e2ae730d929b884",
-    measurementId: "G-GGF85CNCHK"
-};
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app)
-// const analytics = getAnalytics(app);
-// async function signIn(req , res){
-//     try {
-//         const email = req.body.email
-//         const password = req.body.password
-//         auth.createUser({
-//             email: email,
-//             password: password
-//           })
-//           .then((userRecord) => {
-//             console.log(`User ${userRecord.uid} created successfully`);
-//             res.status(201).json({'id':userRecord.uid})
-//           })
-//           .catch((error) => {
-//             console.error('Error creating user:', error);
-//           });
 
-
-
-
-//         // await admin.auth().signInWithEmailAndPassword(email, password)
-//         // .then((userCredential) => {
-//         //     // User is authenticated
-//         //     console.log(`User ${userCredential.user.email} authenticated successfully`);
-//         //     res.status(200).json(userCredential)
-//         // })
-//         // .catch((error) => {
-//         //     console.error('Error authenticating user:', error);
-//         // });
-//         // res.status(200).json({'success':true})
-//     } catch (error) {
-//         console.log(error)
-//     }
-
-// }
-
-// const auth = firebase.auth()
 
 async function signIn(req, res) {
     try {
