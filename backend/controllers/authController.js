@@ -54,7 +54,7 @@ async function signUp(req, res) {
     }
 }
 
-async function signOutFunction() {
+async function signOutFunction(req  , res) {
     try {
         signOut(auth)
             .then(() => {

@@ -52,3 +52,21 @@ export const getTranscriptApi = async(file) =>{
         return error
     }
 }
+
+export const getCurrentUserApi = async() =>{
+    try {
+        const res = await axios.post(`${api}/api/auth/currentuser`)
+        console.log(res.data)
+        return res.data
+    } catch (error) {
+        return error
+    }
+}
+
+export const signOutUser = async() =>{
+    try {
+        await axios.post(`${api}/api/auth/signout`)
+    } catch (error) {
+        return error
+    }
+}

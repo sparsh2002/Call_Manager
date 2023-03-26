@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { getCurrentUserApi, signOutUser } from '../api/api';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -15,10 +16,13 @@ import AdbIcon from '@mui/icons-material/Adb';
 
 const pages = ['Home', 'Calls', 'Library'];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
+const action = ['/profile' , '/account' , '/home' , '/logout']
+
 
 function ResponsiveAppBar() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
+  const [user , setUser] = React.useState(null)
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -35,6 +39,18 @@ function ResponsiveAppBar() {
     setAnchorElUser(null);
   };
 
+  async function getCurrentUser(){
+    const x = await getCurrentUserApi()
+    setUser(x)
+  }
+
+  async function logOutUser(){
+    await signOutUser()
+  }
+
+  React.useEffect(() => {
+    getCurrentUser()
+  }, [])
   
 
   return (
@@ -127,35 +143,45 @@ function ResponsiveAppBar() {
             ))}
           </Box>
 
-          <Box sx={{ flexGrow: 0 }}>
-            <Tooltip title="Open settings">
-              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
-              </IconButton>
-            </Tooltip>
-            <Menu
-              sx={{ mt: '45px' }}
-              id="menu-appbar"
-              anchorEl={anchorElUser}
-              anchorOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
-              open={Boolean(anchorElUser)}
-              onClose={handleCloseUserMenu}
-            >
-              {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center">{setting}</Typography>
-                </MenuItem>
-              ))}
-            </Menu>
-          </Box>
+         {
+          user===null ? <div className='flex gap-x-3'>
+            <button><a  href='/signin'>SignIn</a></button>
+            <button>SignUp</button>
+          </div> :  <Box sx={{ flexGrow: 0 }}>
+          <Tooltip title="Open settings">
+            <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+              <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+            </IconButton>
+          </Tooltip>
+          <Menu
+            sx={{ mt: '45px' }}
+            id="menu-appbar"
+            anchorEl={anchorElUser}
+            anchorOrigin={{
+              vertical: 'top',
+              horizontal: 'right',
+            }}
+            keepMounted
+            transformOrigin={{
+              vertical: 'top',
+              horizontal: 'right',
+            }}
+            open={Boolean(anchorElUser)}
+            onClose={handleCloseUserMenu}
+          >
+            {settings.map((setting) => (
+              <MenuItem key={setting} onClick={handleCloseUserMenu}>
+                <Typography textAlign="center">
+                  {
+                    setting=='Logout' ? <Button onClick={logOutUser}>Logout</Button> : setting
+                  }
+                  
+                </Typography>
+              </MenuItem>
+            ))}
+          </Menu>
+        </Box>
+         }
         </Toolbar>
       </Container>
     </AppBar>
