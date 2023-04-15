@@ -110,13 +110,15 @@ function CallList() {
               inputProps={{ 'aria-label': 'search' }}
             />
           </Search>
-          <button className='border-[1px] pt-1 pb-1 pl-4 pr-5 rounded-[50px] border-gray-600' onClick={handleOpen} >Add</button>
-          <p className='border-[1px] border-gray-500 rounded-[20px] h-[30px] pr-4 pl-4 text-gray-500'>Sort By</p>
+          <div className='flex items-center gap-x-2'>
+          <button className='bg-blue-600 text-white border-[1px] pt-1 pb-1 pl-4 pr-5 rounded-[50px]' onClick={handleOpen} >Add</button>
+          <p className='border-[1px]  border-gray-500 rounded-[20px] h-[30px] pr-4 pl-4 text-gray-500'>Sort By</p>
+          </div>
           </div>
           <div className='flex flex-col gap-y-5'>
             {
               contact ? contact.map(elem => 
-                <div className='flex items-center gap-x-4'>
+                <div className='flex items-center gap-x-4 pl-5'>
                   <div>
                     <Avatar src='https://mui.com/static/images/avatar/2.jpg' />
                   </div>

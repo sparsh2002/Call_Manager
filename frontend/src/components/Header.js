@@ -16,8 +16,8 @@ import AdbIcon from '@mui/icons-material/Adb';
 import {Link, Navigate} from 'react-router-dom'
 import { useNavigate } from "react-router-dom";
 
-const pages = ['Home', 'Calls', 'Library'];
-const pagesLink = ['/' , '/calllist' , '/']
+const pages = ['Home', 'Calls', 'Library' , 'Meeting'];
+const pagesLink = ['/' , '/calllist' , '/' , '/meeting']
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 const action = ['/profile' , '/account' , '/home' , '/logout']
 
@@ -27,6 +27,7 @@ function ResponsiveAppBar() {
   const [anchorElUser, setAnchorElUser] = React.useState(null);
   const [user , setUser] = React.useState(null)
   const navigate = useNavigate();
+  // const [index , setIndex] = useState(0)
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -40,8 +41,8 @@ function ResponsiveAppBar() {
     setAnchorElNav(null);
     // console.log( 'url: ',pagesLink[i])
     // console.log('index:' ,i)
-    // navigate(pagesLink[i])
-    navigate("/calllist")
+    navigate(pagesLink[i])
+    // navigate("/calllist")
   };
 
   const handleCloseUserMenu = () => {
@@ -110,7 +111,7 @@ function ResponsiveAppBar() {
                 horizontal: 'left',
               }}
               open={Boolean(anchorElNav)}
-              onClose={handleCloseNavMenu}
+              // onClose={handleCloseNavMenu}
               sx={{
                 display: { xs: 'block', md: 'none' },
               }}
@@ -144,10 +145,10 @@ function ResponsiveAppBar() {
             LOGO
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-            {pages.map((page) => (
+            {pages.map((page , i) => (
               <Button
                 key={page}
-                onClick={handleCloseNavMenu}
+                onClick={() =>handleCloseNavMenu(i)}
                 sx={{ my: 2, color: 'white', display: 'block' }}
               >
                 {page}
