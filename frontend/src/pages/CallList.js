@@ -4,9 +4,12 @@ import VideocamIcon from '@mui/icons-material/Videocam';
 import SearchIcon from '@mui/icons-material/Search';
 import { styled, alpha } from '@mui/material/styles';
 import InputBase from '@mui/material/InputBase';
-import { Avatar } from '@mui/material';
+import { Avatar, Button } from '@mui/material';
 import { Link } from 'react-router-dom';
 import { getContactList } from '../api/api';
+import Modal from '@mui/material/Modal';
+import AddContact from '../components/AddContact';
+import Box from '@mui/material/Box';
 
 const items = [{ person1: 'Sparsh', person2: 'Pranshi', date: 'March 26 2023', company: 'DRDO' },
 { person1: 'Sparsh', person2: 'Pranshi', date: 'March 26 2023', company: 'DRDO' },
@@ -18,6 +21,19 @@ const person = [{name:'Sparsh' , company:'ISRO'},{name:'Sparsh' , company:'ISRO'
 {name:'Sparsh' , company:'ISRO'},
 {name:'Sparsh' , company:'ISRO'}
 ]
+
+const style = {
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  width: 400,
+  bgcolor: 'background.paper',
+  border: '2px solid #000',
+  boxShadow: 24,
+  p: 4,
+};
+
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -63,6 +79,10 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 function CallList() {
   const [contact , setContact] = useState()
+  const [open, setOpen] = useState(false)
+
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
 
   async function getContacts(){
     const x = await getContactList();
@@ -90,6 +110,7 @@ function CallList() {
               inputProps={{ 'aria-label': 'search' }}
             />
           </Search>
+          <button className='border-[1px] pt-1 pb-1 pl-4 pr-5 rounded-[50px] border-gray-600' onClick={handleOpen} >Add</button>
           <p className='border-[1px] border-gray-500 rounded-[20px] h-[30px] pr-4 pl-4 text-gray-500'>Sort By</p>
           </div>
           <div className='flex flex-col gap-y-5'>
@@ -141,8 +162,19 @@ function CallList() {
             }
           </div>
         </div>
-
+       
       </div>
+      <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      > 
+      <Box sx={style}>
+        <AddContact />
+      </Box>
+          
+        </Modal>
     </>
 
   )

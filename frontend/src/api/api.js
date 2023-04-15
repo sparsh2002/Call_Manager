@@ -81,3 +81,12 @@ export const getContactList = async()=>{
         return error
     }
 }
+
+export const addContactFirestore = async(contact)=>{
+    try {
+        const res = await axios.post(`${api}/api/firestore/add-user` , contact)
+        return res.data
+    } catch (error) {
+        return error
+    }
+}
