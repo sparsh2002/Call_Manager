@@ -2,11 +2,12 @@ import React,{useState , useEffect} from 'react'
 import { getTranscriptApi } from '../api/api'
 import CircularProgress from '@mui/material/CircularProgress';
 function ScriptView({file}) {
-    const [data , setDate] = useState(null)
+    const [speech , setSpeech] = useState(null)
     const [loading , setLoading] = useState(true)
     async function getTranscript(){
         setLoading(true)
-        const x = await getTranscriptApi(file)
+        let x = await getTranscriptApi(file)
+        x = x[1].speechTranscriptions
         var arr = []
         for(var i=0 ; i<x.length ; i++){
             var paragraph = []
@@ -16,7 +17,7 @@ function ScriptView({file}) {
             arr.push(paragraph)
         }
         console.log(arr)
-        setDate(arr)
+        setSpeech(arr)
         setLoading(false)
     }
     useEffect(() => {
@@ -27,9 +28,9 @@ function ScriptView({file}) {
     <div className='w-[100vw] min-h-[80vh]'>
         <p className='text-2xl font-bold'>Transcripted Conversation</p>
         {
-            loading || data===undefined  ? <CircularProgress /> : <div className='flex flex-col gap-y-4'>
+            loading || speech===undefined  ? <CircularProgress /> : <div className='flex flex-col gap-y-4'>
                 {
-                    data && data.length>0 ? data.map(paragraph => <div>
+                    speech && speech.length>0 ? speech.map(paragraph => <div>
                         {paragraph.map(sentence => <p>{sentence}</p>)}
                     </div>) : ""
                 }

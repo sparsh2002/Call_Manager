@@ -47,7 +47,7 @@ export const getTranscriptApi = async(file) =>{
     try {
         let address = "gs://video-call-transcript/" +file
         const res = await axios.post(`${api}/api/test/video/transcript` , {file:address})
-        return res.data.response.speechTranscriptions
+        return res.data.response.annotationResults
     } catch (error) {
         return error
     }
