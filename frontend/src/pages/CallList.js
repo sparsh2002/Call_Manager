@@ -1,4 +1,4 @@
-import React from 'react'
+import React , {useState , useEffect} from 'react'
 import Header from '../components/Header'
 import VideocamIcon from '@mui/icons-material/Videocam';
 import SearchIcon from '@mui/icons-material/Search';
@@ -6,6 +6,7 @@ import { styled, alpha } from '@mui/material/styles';
 import InputBase from '@mui/material/InputBase';
 import { Avatar } from '@mui/material';
 import { Link } from 'react-router-dom';
+import { getContactList } from '../api/api';
 
 const items = [{ person1: 'Sparsh', person2: 'Pranshi', date: 'March 26 2023', company: 'DRDO' },
 { person1: 'Sparsh', person2: 'Pranshi', date: 'March 26 2023', company: 'DRDO' },
@@ -61,6 +62,18 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 function CallList() {
+  const [contact , setContact] = useState()
+
+  async function getContacts(){
+    const x = await getContactList();
+    console.log(x)
+    setContact(x)
+  }
+
+  useEffect(()=>{
+    getContacts()
+  },[])
+
   return (
     <>
       <Header />
@@ -81,14 +94,14 @@ function CallList() {
           </div>
           <div className='flex flex-col gap-y-5'>
             {
-              person ? person.map(elem => 
+              contact ? contact.map(elem => 
                 <div className='flex items-center gap-x-4'>
                   <div>
                     <Avatar src='https://mui.com/static/images/avatar/2.jpg' />
                   </div>
                   <div>
-                    <p className='font-bold'>{elem.name}</p>
-                    <p className='text-[10px]'>{elem.company}</p>
+                    <p className='font-bold'>{elem.firstname}</p>
+                    <p className='text-[10px]'>{elem.contact}</p>
                   </div>
                 </div>
                 ) :''

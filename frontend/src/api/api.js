@@ -70,3 +70,14 @@ export const signOutUser = async() =>{
         return error
     }
 }
+
+// firestore
+
+export const getContactList = async()=>{
+    try {
+        const res = await axios.get(`${api}/api/firestore/getuserlist`)
+        return res.data
+    } catch (error) {
+        return error
+    }
+}

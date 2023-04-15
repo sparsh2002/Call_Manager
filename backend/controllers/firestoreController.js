@@ -1,5 +1,5 @@
 const { db } = require('../middleware/gcp/firestore')
-
+const { collection, getDocs } = require("firebase/firestore");
 
 async function getFS( req , res) {
     try {
@@ -23,5 +23,20 @@ async function addUser(req , res){
     }
 }
 
+async function getUserList(req , res){
+    try {
+        const citiesRef = db.collection('user');
+        const snapshot = await citiesRef.get();
+        let arr = []
+        snapshot.forEach(doc => {
+        // console.log(doc.id, '=>', doc.data());
+        arr.push(doc.data())
+        });
+        res.status(201).json(arr);
+    } catch (error) {
+        console.log(error)
+    }
+}
 
-module.exports = {addUser}
+
+module.exports = {addUser , getUserList}
